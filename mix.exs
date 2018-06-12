@@ -42,7 +42,9 @@ defmodule Platform.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 4.1"},
-      {:pbkdf2_elixir, "~> 0.12.3"}
+      {:pbkdf2_elixir, "~> 0.12.3"},
+      {:edeliver, "~> 1.5.0"},
+      {:distillery, "~> 1.5", warn_missing: false}
     ]
   end
 

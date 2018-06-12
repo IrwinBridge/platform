@@ -1,0 +1,66 @@
+<div class="row">
+
+  <div class="col s3">
+
+    <ul class="collapsible" data-collapsible="accordion">
+
+      <li>
+        <div class="collapsible-header waves-effect waves-grayed">ГЛАВНАЯ</div>
+        <div class="collapsible-body">
+          <div class="collection">
+            <a href="/" class="collection-item active"><i class="material-icons left">home</i>Личный кабинет</a>
+            <a href="/lessons" class="collection-item"><i class="material-icons left">school</i>Уроки</a>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="collapsible-header waves-effect waves-grayed">ПРАКТИКА</div>
+        <div class="collapsible-body">
+          <div class="collection light-blue accent-2">
+            <a href="/homework" class="collection-item"><i class="material-icons left">business_center</i>Домашняя работа</a>
+            <a href="/tests" class="collection-item"><i class="material-icons left">check_box</i>Тесты</a>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="collapsible-header waves-effect waves-grayed">МОЯ ПРОГРАММА</div>
+        <div class="collapsible-body">
+          <div class="collection">
+            <a href="/dictionary" class="collection-item"><i class="material-icons left">import_contacts</i>Словарь</a>
+            <a href="/notes" class="collection-item"><i class="material-icons left">edit</i>Заметки</a>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="collapsible-header waves-effect waves-grayed">ПРОЧЕЕ</div>
+        <div class="collapsible-body">
+          <div class="collection">
+            <a href="/profile" class="collection-item"><i class="material-icons left">person</i>Профиль</a>
+            <a href="/settings" class="collection-item"><i class="material-icons left">settings</i>Настройки</a>
+            <a href="/payment" class="collection-item"><i class="material-icons left">payment</i>Оплата</a>
+            <%= form_for @conn, page_path(@conn, :delete, 13), [method: :delete, as: :user], fn _ -> %>
+              <button type="submit" class="collection-item"><i class="material-icons left">exit_to_app</i>logout</button>
+              <%# submit "logout", class: "waves-effect waves-light btn red accent-4" %>
+            <% end %>
+            <!--a href="#!" drab-click="sign_out" class="collection-item"><i class="material-icons left">exit_to_app</i>Выход</a-->
+          </div>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+
+  <div class="col s9">
+    <div class="card-panel height-100">
+      <div class="centered-flex">
+        <div>
+          <h4 class="center-align">This page is under construction...</h4>
+          <img class="image-center-horizontally" src="<%= static_path(@conn, "/images/under-construction.svg") %>" width="200">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

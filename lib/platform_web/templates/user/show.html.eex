@@ -1,0 +1,59 @@
+<div class="card">
+  <ul class="collection with-header">
+
+    <li class="collection-header"><h4>Show User</h4></li>
+
+    <li class="collection-item">
+      <strong>Username:</strong>
+      <%= @user.username %>
+    </li>
+    <li class="collection-item">
+      <strong>Email:</strong>
+      <%= @user.credential.email %>
+    </li>
+    <li class="collection-item">
+      <strong>Name:</strong>
+      <%= @user.name %>
+    </li>
+    <li class="collection-item">
+      <strong>Surname:</strong>
+      <%= @user.surname %>
+    </li>
+    <li class="collection-item">
+      <strong>About:</strong>
+      <%= @user.about %>
+    </li>
+    <li class="collection-item">
+      <strong>Avatar:</strong>
+      <%= @user.avatar_url %>
+    </li>
+    <li class="collection-item">
+      <strong>Lessons balancet:</strong>
+      <%= @user.lessons_balance %>
+    </li>
+    <li class="collection-item">
+      <strong>Is admin:</strong>
+      <%= @user.is_admin %>
+    </li>
+    <li class="collection-item">
+      <strong>Is moderator:</strong>
+      <%= @user.is_moderator %>
+    </li>
+    <li class="collection-item">
+      <strong>Role:</strong>
+      <%= @user.role %>
+    </li>
+    <li class="collection-item">
+      <strong>Lessons:</strong>
+      <%= @user.lessons %>
+    </li>
+    <li class="collection-item">
+      <strong>Hash:</strong>
+      <%= @user.credential.password_hash %>
+    </li>
+  </ul>
+
+  <%= link "Edit", to: user_path(@conn, :edit, @user), class: "btn" %>
+  <%= link "Back", to: user_path(@conn, :index), class: "btn" %>
+
+</div>

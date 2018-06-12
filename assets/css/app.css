@@ -1,0 +1,39 @@
+/* Rename to .center-register-card*/
+.center-me {
+  margin: 50% auto !important;
+}
+
+.center-login-card {
+  margin: 70% auto !important;
+}
+
+
+/************  COLLECTION ITEMS ************/
+ul.collapsible > li.active > div.collapsible-header {
+  background-color: #eeeeee !important;
+}
+
+.collection-item:not(.active):hover {
+  background-color: #0091ea !important;
+  color: #eafaf9 !important;
+}
+
+.collection-item.active {
+  background-color: #0091ea !important;
+  color: #eafaf9 !important;
+}
+
+.collection a.collection-item {
+  color: #0091ea ;
+}
+
+.collapsible-body {
+  padding: 0 !important;
+}
+
+/************  HELPERS ************/
+.image-center-horizontally {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -1,0 +1,55 @@
+<h2>Listing Users</h2>
+
+<table class="responsive-table bordered highlight">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>About</th>
+      <th>Avatar url</th>
+      <th>Lessons balance</th>
+      <th>Is admin</th>
+      <th>Is moderator</th>
+      <th>Role</th>
+      <th>Lessons</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for user <- @users do %>
+      <tr>
+        <td><%= user.username %></td>
+        <td><%= user.name %></td>
+        <td><%= user.surname %></td>
+        <td><%= user.about %></td>
+        <td><%= user.avatar_url %></td>
+        <td><%= user.lessons_balance %></td>
+        <td><%= user.is_admin %></td>
+        <td><%= user.is_moderator %></td>
+        <td><%= user.role %></td>
+        <td><%= user.lessons %></td>
+
+        <td>
+          <!-- Dropdown Trigger -->
+          <a class='dropdown-trigger btn red' href='#' data-target='dropdown1'>
+            <i class="material-icons">edit</i>
+          </a>
+        </td>
+      </tr>
+
+      <!-- Dropdown Structure -->
+      <ul id='dropdown1' class='dropdown-content'>
+        <li><a href="<%= user_path(@conn, :show, user) %>">show</a></li>
+        <li><a href="<%= user_path(@conn, :edit, user) %>">edit</a></li>
+        <li><%= link "Delete", to: user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"]%></li>
+      </ul>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="fixed-action-btn">
+  <a href="<%= user_path(@conn, :new) %>" class="btn-floating btn-large waves-effect waves-light red">
+    <i class="large material-icons">add</i>
+  </a>
+</div>

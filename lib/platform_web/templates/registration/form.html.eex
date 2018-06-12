@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col s3"></div>
+  <div class="col s6">
+    <div class="card-panel center-me">
+
+      <h3>Registration</h3>
+      <br>
+
+      <%= form_for @changeset, @action, fn f -> %>
+
+        <div class="input-field">
+          <%= label f, :username %>
+          <%= text_input f, :username, class: "validate" %>
+          <%= error_tag f, :username %>
+        </div>
+
+          <%= inputs_for f, :credential, fn cf -> %>
+            <div class="input-field">
+              <%= label cf, :email %>
+              <%= text_input cf, :email, class: "validate" %>
+              <%= error_tag cf, :email %>
+            </div>
+            <div class="input-field">
+              <%= label cf, :password %>
+              <%= text_input cf, :password, class: "validate" %>
+              <%= error_tag cf, :password %>
+            </div>
+            <div class="input-field">
+              <%= label cf, :password_confirmation %>
+              <%= text_input cf, :password_confirmation, class: "validate" %>
+              <%= error_tag cf, :password_confirmation %>
+            </div>
+          <% end %>
+
+        <div class="input-field">
+          <%= label f, :name %>
+          <%= text_input f, :name, class: "validate" %>
+          <%= error_tag f, :name %>
+        </div>
+
+        <div class="input-field">
+          <%= label f, :surname %>
+          <%= text_input f, :surname, class: "validate" %>
+          <%= error_tag f, :surname %>
+        </div>
+
+        <div class="input-field">
+          <%= label f, :about %>
+          <%= textarea f, :about, class: "materialize-textarea" %>
+          <%= error_tag f, :about %>
+        </div>
+
+        <!--div class="input-field">
+          <%# label f, :avatar, class: "control-label" %>
+          <%# text_input f, :avatar, class: "form-control" %>
+          <%# error_tag f, :avatar %>
+        </div-->
+
+        <!--div class="input-field">
+          <%# label f, :role, class: "control-label" %>
+          <%# select f, :role, ["student", "teacher"], class: "form-control" %>
+          <%# error_tag f, :role %>
+        </div-->
+
+        <div class="right-align">
+          <%= submit "Sign up", class: "waves-effect waves-light btn light-blue accent-4" %>
+        </div>
+
+      <% end %>
+
+    </div>
+  </div>
+  <div class="col s3"></div>
+</div>

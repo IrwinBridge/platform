@@ -14,7 +14,7 @@ config :platform, PlatformWeb.Endpoint,
 # Configure your database
 config :platform, Platform.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "ecto",
+  password: "19216801995",
   database: "platform_prod",
   pool_size: 15

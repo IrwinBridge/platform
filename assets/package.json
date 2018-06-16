@@ -1,5 +1,8 @@
 {
-  "repository": {},
+  "repository": {
+    "type" : "git"
+  , "url" : "https://github.com/IrwinBridge/platform/platform.git"
+  },
   "license": "MIT",
   "scripts": {
     "deploy": "brunch build --production",

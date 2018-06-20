@@ -32,7 +32,7 @@ pre_erlang_clean_compile() {
   __sync_remote "
     [ -f ~/.profile ] && source ~/.profile
     set -e
-    cd '$BUILD_AT/_build/prod'
+    cd '$BUILD_AT'
     npm install
   "
 
@@ -40,7 +40,7 @@ pre_erlang_clean_compile() {
   __sync_remote "
     [ -f ~/.profile ] && source ~/.profile
     set -e
-    cd '$BUILD_AT/_build/prod'
+    cd '$BUILD_AT'
     ./node_modules/brunch/bin/brunch build --production
   "
 

@@ -9,7 +9,7 @@ use Mix.Config
 # kept out of version control and might be hard to recover
 # or recreate for your teammates (or yourself later on).
 config :platform, PlatformWeb.Endpoint,
-  secret_key_base: "pGyt7f9sTMxg15nm65pDud56TqFR/xbdP4YGLK6PQLp3+qlQPh9yqYiGe/0cIzVm"
+  secret_key_base: "Dr1VGbo8kELgEKu/DK2VgaYAD09+hU5ScMjs4e1xUTeW9oe6FycAIdFVQAUvcfWa"
 
 # Configure your database
 config :platform, Platform.Repo,

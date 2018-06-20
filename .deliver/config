@@ -4,7 +4,7 @@ BUILD_HOST="138.197.183.187"
 BUILD_USER="deploy"
 BUILD_AT="/tmp/edeliver/$APP/builds"
 
-RELEASE_DIR="/tmp/edeliver/$APP/builds/_build/prod/rel/$APP"
+RELEASE_DIR="$BUILD_AT/_build/prod/rel/$APP"
 
 # prevent re-installing node modules; this defaults to "."
 GIT_CLEAN_PATHS="_build rel priv/static"
@@ -28,20 +28,28 @@ pre_erlang_get_and_update_deps() {
 }
 
 pre_erlang_clean_compile() {
-  status "Running phoenix.digest" # log output prepended with "----->"
-  __sync_remote " # runs the commands on the build host
-    # [ -f ~/.profile ] && source ~/.profile # load profile (optional)
-    source ~/.profile
-    # echo \$PATH # check if rbenv is in the path
-    set -e # fail if any command fails (recommended)
-    cd '$BUILD_AT' # enter the build directory on the build host (required)
-    # prepare something
-    mkdir -p priv/static # required by the phoenix.digest task
+  status "Running npm install"
+  __sync_remote "
+    [ -f ~/.profile ] && source ~/.profile
+    set -e
+    cd '$BUILD_AT/_build/prod'
     npm install
+  "
 
+  status "Running brunch build"
+  __sync_remote "
+    [ -f ~/.profile ] && source ~/.profile
+    set -e
+    cd '$BUILD_AT/_build/prod'
     ./node_modules/brunch/bin/brunch build --production
+  "
 
-    # run your custom task
+  status "Running phoenix.digest"
+  __sync_remote "
+    [ -f ~/.profile ] && source ~/.profile
+    set -e
+    cd '$BUILD_AT'
+    mkdir -p priv/static # required by the phoenix.digest task
     APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD phoenix.digest $SILENCE
   "
 }

@@ -73,6 +73,9 @@ defmodule PlatformWeb.Router do
   scope "/", PlatformWeb do
     pipe_through :public
 
+    # TODO: DELETE!!!!!!!!
+    resources "/users", UserController
+
     resources "/register", RegistrationController, only: [:index, :create]
     resources "/login", LoginController, only: [:index, :create]
   end

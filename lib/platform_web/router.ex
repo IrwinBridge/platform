@@ -47,7 +47,7 @@ defmodule PlatformWeb.Router do
   scope "/", PlatformWeb do
     pipe_through :admin
 
-    resources "/users", UserController
+    #resources "/users", UserController
 
     #CMS functionality lessons
   end

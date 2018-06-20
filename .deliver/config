@@ -33,7 +33,7 @@ pre_erlang_clean_compile() {
     [ -f ~/.profile ] && source ~/.profile
     set -e
     cd '$BUILD_AT/assets'
-    npm install
+    npm install $SILENCE
   "
 
   status "Running brunch build"
@@ -41,7 +41,7 @@ pre_erlang_clean_compile() {
     [ -f ~/.profile ] && source ~/.profile
     set -e
     cd '$BUILD_AT/assets'
-    ./node_modules/brunch/bin/brunch build --production
+    ./node_modules/brunch/bin/brunch build --production $SILENCE
   "
 
   status "Running phoenix.digest"

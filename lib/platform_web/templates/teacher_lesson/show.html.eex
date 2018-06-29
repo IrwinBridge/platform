@@ -1,0 +1,72 @@
+<h1><%= @lesson.title %></h1>
+
+</br>
+
+<h3>Teacher Pages</h3>
+
+</br>
+<h4>Preparation</h4>
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for page <- @lesson.pages do %>
+      <%= if page.type == "Preparation" do %>
+        <tr>
+          <td><%= page.order %></td>
+          <td><%= page.title %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+</br>
+<h4>Lesson</h4>
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for page <- @lesson.pages do %>
+      <%= if page.type == "Lesson" do %>
+        <tr>
+          <td><%= page.order %></td>
+          <td><%= page.title %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+</br>
+<h4>Homework</h4>
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for page <- @lesson.pages do %>
+      <%= if page.type == "Homework" do %>
+        <tr>
+          <td><%= page.order %></td>
+          <td><%= page.title %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+</br>
+
+<span><%= link "Back", to: lesson_path(@conn, :index), class: "btn btn-danger" %></span>

@@ -1,0 +1,211 @@
+<div class="row">
+
+  <div class="col s3">
+    <ul class="collapsible" data-collapsible="accordion">
+      <li>
+        <div class="collapsible-header waves-effect waves-grayed">ГЛАВНАЯ</div>
+        <div class="collapsible-body">
+          <div class="collection">
+            <a href="/" class="collection-item"><i class="material-icons left">home</i>Личный кабинет</a>
+            <a href="/lessons" class="collection-item active"><i class="material-icons left">school</i>Уроки</a>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="collapsible-header waves-effect waves-grayed">ПРАКТИКА</div>
+        <div class="collapsible-body">
+          <div class="collection light-blue accent-2">
+            <a href="/homework" class="collection-item"><i class="material-icons left">business_center</i>Домашняя работа</a>
+            <a href="/tests" class="collection-item"><i class="material-icons left">check_box</i>Тесты</a>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="collapsible-header waves-effect waves-grayed">МОЯ ПРОГРАММА</div>
+        <div class="collapsible-body">
+          <div class="collection">
+            <a href="/dictionary" class="collection-item"><i class="material-icons left">import_contacts</i>Словарь</a>
+            <a href="/notes" class="collection-item"><i class="material-icons left">edit</i>Заметки</a>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="collapsible-header waves-effect waves-grayed">ПРОЧЕЕ</div>
+        <div class="collapsible-body">
+          <div class="collection">
+            <a href="/profile" class="collection-item"><i class="material-icons left">person</i>Профиль</a>
+            <a href="/settings" class="collection-item"><i class="material-icons left">settings</i>Настройки</a>
+            <a href="/payment" class="collection-item"><i class="material-icons left">payment</i>Оплата</a>
+            <a href="/logout" class="collection-item"><i class="material-icons left">exit_to_app</i>Выход</a>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+
+  <div class="col s9">
+    <div class="row">
+      <div class="col s6">
+        <div class="card">
+          <div class="card-image waves-effect waves-block waves-light" drab-click="select_lesson_section" data-section="General">
+            <img src="<%= static_path(@conn, "/images/1-basic.png") %>">
+          </div>
+          <div id="general_eng_card" class="card-content">
+            <span class="card-title">General English</span>
+          </div>
+        </div>
+      </div>
+      <div class="col s6">
+        <div class="card">
+          <div class="card-image waves-effect waves-block waves-light" drab-click="select_lesson_section" data-section="Business">
+            <img src="<%= static_path(@conn, "/images/1-business.png") %>">
+          </div>
+          <div id="business_eng_card" class="card-content">
+            <span class="card-title">Business English</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ul class="tabs tabs-fixed-width">
+      <li class="tab"><a class="active" href="#Elementary">Elementary</a></li>
+      <li class="tab"><a href="#Pre-Intermediate">Pre-Int</a></li>
+      <li class="tab"><a href="#Intermediate">Intermediate</a></li>
+      <li class="tab"><a href="#Upper-Intermediate">Upper-Int</a></li>
+      <li class="tab"><a href="#Advanced">Advanced</a></li>
+    </ul>
+    <div class="card-content">
+      <div id="Elementary">
+        <%= for lesson <- @elementary do %>
+          <div><%# lesson.order %></div>
+
+          <div class="card">
+            <div onclick="linkClick('<%= lesson_url(@conn, :show, lesson) %>')" class="card-content waves-effect waves-grayed">
+              <span class="card-title truncate"><%= lesson.title %></span>
+              <%= if lesson.grammar != "" do %>
+                <div class="valign-wrapper"><i class="tiny material-icons slim light-blue-text text-accent-4">school</i><%= lesson.grammar %></div>
+              <% end %>
+              <%= if lesson.words != "" do %>
+                <div class="valign-wrapper"><i class="tiny material-icons slim light-blue-text text-accent-4">import_contacts</i><%= lesson.words %></div>
+              <% end %>
+            </div>
+
+            <div class="card-action">
+              <%= link "Edit", to: lesson_path(@conn, :edit, lesson), class: "blue-text text-accent-4" %>
+              <%= link "Delete", to: lesson_path(@conn, :delete, lesson), method: :delete, data: [confirm: "Are you sure?"], class: "deep-orange-text text-accent-4" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div id="Pre-Intermediate">
+        <%= for lesson <- @pre_int do %>
+            <div><%# lesson.order %></div>
+
+            <div class="card">
+              <div onclick="linkClick('<%= lesson_url(@conn, :show, lesson) %>')" class="card-content waves-effect waves-grayed">
+                <span class="card-title truncate"><%= lesson.title %></span>
+                <%= if lesson.grammar != "" do %>
+                  <div class="valign-wrapper"><i class="tiny material-icons slim light-blue-text text-accent-4 padding-right">school</i><%= lesson.grammar %></div>
+                <% end %>
+                <%= if lesson.words != "" do %>
+                  <div class="valign-wrapper"><i class="tiny material-icons slim light-blue-text text-accent-4 padding-right">import_contacts</i><%= lesson.words %></div>
+                <% end %>
+              </div>
+
+              <div class="card-action">
+                <%= link "Edit", to: lesson_path(@conn, :edit, lesson), class: "blue-text text-accent-4" %>
+                <%= link "Delete", to: lesson_path(@conn, :delete, lesson), method: :delete, data: [confirm: "Are you sure?"], class: "deep-orange-text text-accent-4" %>
+              </div>
+            </div>
+
+        <% end %>
+      </div>
+      <div id="Intermediate">
+        <%= for lesson <- @int do %>
+            <div><%# lesson.order %></div>
+
+            <div class="card">
+              <div onclick="linkClick('<%= lesson_url(@conn, :show, lesson) %>')" class="card-content waves-effect waves-grayed">
+                <span class="card-title truncate"><%= lesson.title %></span>
+                <%= if lesson.grammar != "" do %>
+                  <div class="valign-wrapper"><i class="tiny material-icons slim light-blue-text text-accent-4 padding-right">school</i><%= lesson.grammar %></div>
+                <% end %>
+                <%= if lesson.words != "" do %>
+                  <div class="valign-wrapper"><i class="tiny material-icons slim light-blue-text text-accent-4 padding-right">import_contacts</i><%= lesson.words %></div>
+                <% end %>
+              </div>
+
+              <div class="card-action">
+                <%= link "Edit", to: lesson_path(@conn, :edit, lesson), class: "blue-text text-accent-4" %>
+                <%= link "Delete", to: lesson_path(@conn, :delete, lesson), method: :delete, data: [confirm: "Are you sure?"], class: "deep-orange-text text-accent-4" %>
+              </div>
+            </div>
+
+        <% end %>
+      </div>
+      <div id="Upper-Intermediate">
+        <%= for lesson <- @upper_int do %>
+            <div><%# lesson.order %></div>
+
+            <div class="card">
+              <div onclick="linkClick('<%= lesson_url(@conn, :show, lesson) %>')" class="card-content waves-effect waves-grayed">
+                <span class="card-title truncate"><%= lesson.title %></span>
+                <%= if lesson.grammar != "" do %>
+                  <div class="valign-wrapper"><i class="tiny material-icons slim light-blue-text text-accent-4 padding-right">school</i><%= lesson.grammar %></div>
+                <% end %>
+                <%= if lesson.words != "" do %>
+                  <div class="valign-wrapper"><i class="tiny material-icons slim light-blue-text text-accent-4 padding-right">import_contacts</i><%= lesson.words %></div>
+                <% end %>
+              </div>
+
+              <div class="card-action">
+                <%= link "Edit", to: lesson_path(@conn, :edit, lesson), class: "blue-text text-accent-4" %>
+                <%= link "Delete", to: lesson_path(@conn, :delete, lesson), method: :delete, data: [confirm: "Are you sure?"], class: "deep-orange-text text-accent-4" %>
+              </div>
+            </div>
+
+        <% end %>
+      </div>
+      <div id="Advanced">
+        <%= for lesson <- @advanced do %>
+            <div><%# lesson.order %></div>
+
+            <div class="card">
+              <div onclick="linkClick('<%= lesson_url(@conn, :show, lesson) %>')" class="card-content waves-effect waves-grayed">
+                <span class="card-title truncate"><%= lesson.title %></span>
+                <%= if lesson.grammar != "" do %>
+                  <div class="valign-wrapper"><i class="tiny material-icons slim light-blue-text text-accent-4 padding-right">school</i><%= lesson.grammar %></div>
+                <% end %>
+                <%= if lesson.words != "" do %>
+                  <div class="valign-wrapper"><i class="tiny material-icons slim light-blue-text text-accent-4 padding-right">import_contacts</i><%= lesson.words %></div>
+                <% end %>
+              </div>
+
+              <div class="card-action">
+                <%= link "Edit", to: lesson_path(@conn, :edit, lesson), class: "blue-text text-accent-4" %>
+                <%= link "Delete", to: lesson_path(@conn, :delete, lesson), method: :delete, data: [confirm: "Are you sure?"], class: "deep-orange-text text-accent-4" %>
+              </div>
+            </div>
+
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="fixed-action-btn">
+  <a href="<%= lesson_path(@conn, :new) %>" class="btn-floating btn-large waves-effect waves-light red">
+    <i class="large material-icons">add</i>
+  </a>
+</div>
+
+<script>
+  function linkClick(url) {
+    window.location.href = url;
+  }
+</script>

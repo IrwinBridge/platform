@@ -1,0 +1,77 @@
+<div class="row">
+  <%= form_for @changeset, @action, fn f -> %>
+
+    <div class="col s3">
+      <div class="card-panel">
+
+          <div class="input-field">
+            <%= label f, :title %>
+            <%= text_input f, :title %>
+            <%= error_tag f, :title %>
+          </div>
+
+          <div class="input-field" id="page-type-select">
+            <%= select f, :type, ["Preparation", "Lesson", "Homework"] %>
+            <%= error_tag f, :type %>
+          </div>
+
+          <div class="input-field">
+            <%= label f, :order %>
+            <%= text_input f, :order %>
+            <%= error_tag f, :order %>
+          </div>
+
+      </div>
+    </div>
+
+    <div class="col s9">
+
+      <div class="right-left-block top-block">
+        <span>
+          <a href="<%= lesson_path(@conn, :show, @lesson) %>" class="waves-effect waves-grey grey lighten-5 grey-text text-darken-4 btn">
+            <i class="material-icons left">chevron_left</i>back
+          </a>
+        </span>
+      </div>
+
+      <div class="card-panel control-panel">
+        <a drab="click:new_exercise_click" class="waves-effect waves-light btn"><i class="material-icons left">add</i>New exercise</a>
+      </div>
+
+      <div class="card-panel showroom"></div>
+
+      <ul class="collapsible" data-collapsible="accordion">
+        <li>
+          <div class="collapsible-header">
+            <i class="material-icons">block</i>Hidden data (don't touch!)
+          </div>
+          <div class="collapsible-body padding-10">
+            <div class="input-field">
+              <%= label f, :titles %>
+              <%= text_input f, :titles, class: "validate" %>
+              <%= error_tag f, :titles %>
+            </div>
+
+            <div class="input-field">
+              <%= label f, :content %>
+              <%= textarea f, :content, class: "materialize-textarea content-textarea" %>
+              <%= error_tag f, :content %>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <div>
+        <%= submit "Save", class: "waves-effect waves-light btn light-blue accent-4" %>
+      </div>
+
+    </div>
+
+  <% end %>
+</div>
+
+<script>
+  function linkClick(url) {
+    window.location.href = url;
+  }
+</script>

@@ -1,0 +1,1 @@
+<%= render "page_form.html", Map.put(assigns, :action, lesson_path(@conn, :create_page, @lesson.id)) %>

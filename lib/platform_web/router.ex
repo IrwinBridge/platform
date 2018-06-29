@@ -1,6 +1,15 @@
 defmodule PlatformWeb.Router do
   use PlatformWeb, :router
 
+  # LOGOUT
+  pipeline :logout do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_flash
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+  end
+
   # PUBLIC
   pipeline :public do
     plug :accepts, ["html"]
@@ -43,13 +52,36 @@ defmodule PlatformWeb.Router do
     plug :check_if_admin
   end
 
+  # DELETE SESSION
+  scope "/logout", PlatformWeb do
+     pipe_through :logout
+
+     get "/", LogoutController, :index
+     delete "/:id", LogoutController, :delete
+  end
+
   # ADMIN ONLY
   scope "/", PlatformWeb do
     pipe_through :admin
 
-    #resources "/users", UserController
+    resources "/users", UserController
 
     #CMS functionality lessons
+    get "/lessons/new_page/:lesson_id", LessonController, :new_page
+    get "/lessons/edit_page/:page_id", LessonController, :edit_page
+    get "/lessons/edit/:id", LessonController, :edit
+    get "/lessons/new", LessonController, :new
+
+    post "/lessons/create_page/:lesson_id", LessonController, :create_page
+    post "/lessons", LessonController, :create
+
+    patch "/lessons/:id", LessonController, :update
+    patch "/lessons/page/:page_id", LessonController, :update_page
+
+    put "/lessons/:id", LessonController, :update
+    put "/lessons/page/:page_id", LessonController, :update_page
+
+    delete "/lessons/:id", LessonController, :delete
   end
 
   # MODERATOR ONLY
@@ -57,6 +89,21 @@ defmodule PlatformWeb.Router do
     pipe_through :moderator
 
     #CMS functionality lessons
+    get "/lessons/new_page/:lesson_id", LessonController, :new_page
+    get "/lessons/edit_page/:page_id", LessonController, :edit_page
+    get "/lessons/edit/:id", LessonController, :edit
+    get "/lessons/new", LessonController, :new
+
+    post "/lessons/create_page/:lesson_id", LessonController, :create_page
+    post "/lessons", LessonController, :create
+
+    patch "/lessons/:id", LessonController, :update
+    patch "/lessons/page/:page_id", LessonController, :update_page
+
+    put "/lessons/:id", LessonController, :update
+    put "/lessons/page/:page_id", LessonController, :update_page
+
+    delete "/lessons/:id", LessonController, :delete
   end
 
   # LOGGED IN
@@ -64,17 +111,16 @@ defmodule PlatformWeb.Router do
     pipe_through :secured
 
     #main_page
-    resources "/", PageController, only: [:index, :delete]
+    resources "/", PageController, only: [:index]
 
     #lessons
+    get "/lessons", LessonController, :index
+    get "/lessons/:id", LessonController, :show
   end
 
   # PUBLIC
   scope "/", PlatformWeb do
     pipe_through :public
-
-    # TODO: DELETE!!!!!!!!
-    resources "/users", UserController
 
     resources "/register", RegistrationController, only: [:index, :create]
     resources "/login", LoginController, only: [:index, :create]

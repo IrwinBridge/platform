@@ -1,9 +1,7 @@
 <div class="row">
 
   <div class="col s3">
-
     <ul class="collapsible" data-collapsible="accordion">
-
       <li>
         <div class="collapsible-header waves-effect waves-grayed">ГЛАВНАЯ</div>
         <div class="collapsible-body">
@@ -41,11 +39,7 @@
             <a href="/profile" class="collection-item"><i class="material-icons left">person</i>Профиль</a>
             <a href="/settings" class="collection-item"><i class="material-icons left">settings</i>Настройки</a>
             <a href="/payment" class="collection-item"><i class="material-icons left">payment</i>Оплата</a>
-            <%= form_for @conn, page_path(@conn, :delete, 13), [method: :delete, as: :user], fn _ -> %>
-              <button type="submit" class="collection-item"><i class="material-icons left">exit_to_app</i>logout</button>
-              <%# submit "logout", class: "waves-effect waves-light btn red accent-4" %>
-            <% end %>
-            <!--a href="#!" drab-click="sign_out" class="collection-item"><i class="material-icons left">exit_to_app</i>Выход</a-->
+            <a href="/logout" class="collection-item"><i class="material-icons left">exit_to_app</i>Выход</a>
           </div>
         </div>
       </li>

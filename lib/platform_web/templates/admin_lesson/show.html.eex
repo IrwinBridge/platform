@@ -1,8 +1,10 @@
+<div id="page_name" hidden>showlesson</div>
+
 <div class="row">
 
   <div class="col s3">
 
-    <div class="card">
+    <div class="card score-table">
       <div class="lesson-score">0</div>
       <div class="completed-icon"></div>
     </div>
@@ -94,7 +96,7 @@
       </span>
     </div>
 
-    <div class="card-panel z-depth-1">
+    <div id="lesson_page_content" class="card-panel z-depth-1" data-page_id="<%= @start_page_with_id %>">
     </div>
 
   </div>

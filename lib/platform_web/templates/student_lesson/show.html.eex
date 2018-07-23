@@ -1,72 +1,89 @@
-<h1><%= @lesson.title %></h1>
+<div class="row">
 
-</br>
+  <div class="col s3">
 
-<h3>Student Pages</h3>
+    <div class="card score-table">
+      <div class="lesson-score">0</div>
+      <div class="completed-icon"></div>
+    </div>
 
-</br>
-<h4>Preparation</h4>
-<table class="table">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Title</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= for page <- @lesson.pages do %>
-      <%= if page.type == "Preparation" do %>
-        <tr>
-          <td><%= page.order %></td>
-          <td><%= page.title %></td>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+    <ul class="collapsible expandable">
+      <li class="active">
+        <div class="collapsible-header waves-effect waves-grayed">
+          <span class="valign-wrapper">
+            <i class="material-icons slim">folder</i>Preparation
+          </span>
+        </div>
+        <div class="collapsible-body">
+          <div class="collection">
+            <%= for page <- @prep_type do %>
+              <div class="collection-item page-item tooltipped" data-position="right" data-tooltip="<%= page.title %>" data-page_id="<%= page.id %>">
+                <span class="page-line truncate">
+                  <span class="page-order"><%= page.order %></span>
+                  <span class="page-title truncate"><%= page.title %></span>
+                </span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </li>
 
-</br>
-<h4>Lesson</h4>
-<table class="table">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Title</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= for page <- @lesson.pages do %>
-      <%= if page.type == "Lesson" do %>
-        <tr>
-          <td><%= page.order %></td>
-          <td><%= page.title %></td>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+      <li class="active">
+        <div class="collapsible-header waves-effect waves-grayed">
+          <span class="valign-wrapper">
+            <i class="material-icons slim">folder</i>Lesson
+          </span>
+        </div>
+        <div class="collapsible-body">
+          <div class="collection">
+            <%= for page <- @lesson_type do %>
+              <div class="collection-item page-item tooltipped" data-position="right" data-tooltip="<%= page.title %>" data-page_id="<%= page.id %>">
+                <span class="page-line truncate">
+                  <span class="page-order"><%= page.order %></span>
+                  <span class="page-title truncate"><%= page.title %></span>
+                </span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </li>
 
-</br>
-<h4>Homework</h4>
-<table class="table">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Title</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= for page <- @lesson.pages do %>
-      <%= if page.type == "Homework" do %>
-        <tr>
-          <td><%= page.order %></td>
-          <td><%= page.title %></td>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+      <li class="active">
+        <div class="collapsible-header waves-effect waves-grayed">
+          <span class="valign-wrapper">
+            <i class="material-icons slim">folder</i>Homework
+          </span>
+        </div>
+        <div class="collapsible-body">
+          <div class="collection">
+            <%= for page <- @hw_type do %>
+              <div class="collection-item page-item tooltipped" data-position="right" data-tooltip="<%= page.title %>" data-page_id="<%= page.id %>">
+                <span class="page-line truncate">
+                  <span class="page-order"><%= page.order %></span>
+                  <span class="page-title truncate"><%= page.title %></span>
+                </span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
 
-</br>
+  <div class="col s9">
 
-<span><%= link "Back", to: lesson_path(@conn, :index), class: "btn btn-danger" %></span>
+    <div class="right-left-block top-block">
+      <a class="waves-effect waves-grey grey lighten-5 grey-text text-darken-4 btn">reset</a>
+
+      <span>
+        <a class="waves-effect waves-grey grey lighten-5 grey-text text-darken-4 btn"><i class="material-icons left">chevron_left</i>back</a>
+        <a class="waves-effect waves-light light-blue accent-3 btn"><i class="material-icons right">chevron_right</i>next</a>
+        <a href="<%= lesson_path(@conn, :index) %>" class="waves-effect waves-light grey lighten-1 btn"><i class="material-icons left">exit_to_app</i>Exit lesson</a>
+      </span>
+    </div>
+
+    <div class="card-panel z-depth-1">
+    </div>
+
+  </div>
+</div>

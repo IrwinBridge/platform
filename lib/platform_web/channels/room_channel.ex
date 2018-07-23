@@ -11,12 +11,6 @@ defmodule PlatformWeb.RoomChannel do
     {:error, %{reason: "unauthorized"}}
   end
 
-  def handle_in("event", %{"body" => body}, socket) do
-    push socket, "event", %{body: body}
-    {:noreply, socket}
-  end
-
-
   def handle_in("delete_page_event", %{"page_id" => page_id}, socket) do
     page_type = Lessons.get_page!(page_id).type
     page_lesson_id = Lessons.get_page!(page_id).lesson_id
@@ -39,7 +33,17 @@ defmodule PlatformWeb.RoomChannel do
   end
 
   def handle_in("click_select_page_event", %{"page_id" => page_id}, socket) do
-    push socket, "click_select_page_event", %{page_id: page_id}
+    page = Lessons.get_page!(page_id)
+    push socket, "click_select_page_event",
+      %{page_titles: page.titles, page_contents: page.content, page_answers: page.answers}
+    {:noreply, socket}
+  end
+
+  def handle_in("load_lesson_page_event", %{"page_id" => page_id}, socket) do
+    page = Lessons.get_page!(page_id)
+    push socket, "load_lesson_page_event",
+      %{page_titles: page.titles, page_contents: page.content, page_answers: page.answers}
+
     {:noreply, socket}
   end
 end

@@ -67,8 +67,11 @@ defmodule PlatformWeb.LessonController do
       Enum.filter(lesson.pages, fn(page) -> page.type == "Homework" end)
       |> Enum.sort_by(fn(page) -> page.order end)
 
+    first_page = Lessons.get_first_page(lesson.id)
+
     Helper.render_lessons(conn, "show.html",
-      %{lesson: lesson, prep_type: prep_type, lesson_type: lesson_type, hw_type: hw_type})
+      %{lesson: lesson, prep_type: prep_type, lesson_type: lesson_type, hw_type: hw_type,
+        start_page_with_id: first_page.id})
   end
 
   def edit(conn, %{"id" => id}) do

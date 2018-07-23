@@ -149,6 +149,37 @@ li.tab > a {
 }
 
 
+/************  PAGE CONTENT ************/
+.exercise {
+  display: block;
+  margin-bottom: 32px;
+}
+
+.exercise-title {
+  font-size: 20px;
+  margin-bottom: 8px;
+  margin-left: -24px;
+}
+
+.exercise-title > :first-child {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 0px 22px 22px 0px;
+  border-color: #0091ea;
+
+  background-color: #0091ea;
+  color: white;
+  font-style: italic;
+
+  padding-right: 16px;
+  padding-left: 8px;
+}
+
+.exercise-content {
+  font-size: 16px;
+}
+
+
 /************  HELPERS ************/
 .image-center-horizontally {
   display: block;
@@ -162,6 +193,21 @@ li.tab > a {
 
 .waves-effect.waves-blue .waves-ripple {
   background-color: rgba(0, 145, 234, 0.65);
+}
+
+.card.score-table {
+  margin: 0px 0px 16px 0px;
+  padding: 16px 0px 16px 0px;
+}
+
+.padding-10 {
+  padding: 10px !important;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 

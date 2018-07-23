@@ -227,4 +227,8 @@ defmodule Platform.Lessons do
     |> Enum.with_index(1)
     |> Enum.each(fn {p, idx} -> update_page(p, %{order: idx}) end)
   end
+
+  def get_first_page(lesson_id) do
+    Repo.get_by(Page, lesson_id: lesson_id, type: "Preparation", order: 1)
+  end
 end

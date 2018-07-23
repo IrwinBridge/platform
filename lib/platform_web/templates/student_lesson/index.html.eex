@@ -1,8 +1,8 @@
 <div class="row">
-
   <div class="col s3">
-    <ul class="collapsible" data-collapsible="accordion">
-      <li>
+
+    <ul class="collapsible">
+      <li class="active">
         <div class="collapsible-header waves-effect waves-grayed">ГЛАВНАЯ</div>
         <div class="collapsible-body">
           <div class="collection">
@@ -81,113 +81,92 @@
     </ul>
     <div class="card-content">
       <div id="Elementary">
-        <%= for lesson <- @lessons do %>
-          <%= if lesson.level == "Elementary" do %>
-            <div><%# lesson.order %></div>
+        <%= for lesson <- @elementary do %>
+          <div><%# lesson.order %></div>
 
-            <div class="card">
-              <div onclick="linkClick('<%= lesson_url(@conn, :show, lesson) %>')" class="card-content waves-effect waves-grayed">
-                <span class="card-title">
-                  <%= lesson.title %>
-                </span>
-                <%= if lesson.grammar != "" do %>
-                  <div><i class="tiny material-icons light-blue-text text-accent-4 padding-right">school</i><%= lesson.grammar %></div>
-                <% end %>
-                <%= if lesson.words != "" do %>
-                  <div><i class="tiny material-icons light-blue-text text-accent-4 padding-right">import_contacts</i><%= lesson.words %></div>
-                <% end %>
-              </div>
+          <div class="card">
+            <div onclick="linkClick('<%= lesson_url(@conn, :show, lesson) %>')" class="card-content waves-effect waves-grayed">
+              <span class="card-title truncate"><%= lesson.title %></span>
+              <%= if lesson.grammar != "" do %>
+                <div class="valign-wrapper"><i class="tiny material-icons slim light-blue-text text-accent-4">school</i><%= lesson.grammar %></div>
+              <% end %>
+              <%= if lesson.words != "" do %>
+                <div class="valign-wrapper"><i class="tiny material-icons slim light-blue-text text-accent-4">import_contacts</i><%= lesson.words %></div>
+              <% end %>
             </div>
-
-          <% end %>
+          </div>
         <% end %>
       </div>
       <div id="Pre-Intermediate">
-        <%= for lesson <- @lessons do %>
-          <%= if lesson.level == "Pre-Intermediate" do %>
+        <%= for lesson <- @pre_int do %>
             <div><%# lesson.order %></div>
 
             <div class="card">
               <div onclick="linkClick('<%= lesson_url(@conn, :show, lesson) %>')" class="card-content waves-effect waves-grayed">
-                <span class="card-title">
-                  <%= lesson.title %>
-                </span>
+                <span class="card-title truncate"><%= lesson.title %></span>
                 <%= if lesson.grammar != "" do %>
-                  <div><i class="tiny material-icons light-blue-text text-accent-4 padding-right">school</i><%= lesson.grammar %></div>
+                  <div class="valign-wrapper"><i class="tiny material-icons slim light-blue-text text-accent-4 padding-right">school</i><%= lesson.grammar %></div>
                 <% end %>
                 <%= if lesson.words != "" do %>
-                  <div><i class="tiny material-icons light-blue-text text-accent-4 padding-right">import_contacts</i><%= lesson.words %></div>
+                  <div class="valign-wrapper"><i class="tiny material-icons slim light-blue-text text-accent-4 padding-right">import_contacts</i><%= lesson.words %></div>
                 <% end %>
               </div>
             </div>
 
-          <% end %>
         <% end %>
       </div>
       <div id="Intermediate">
-        <%= for lesson <- @lessons do %>
-          <%= if lesson.level == "Intermediate" do %>
+        <%= for lesson <- @int do %>
             <div><%# lesson.order %></div>
 
             <div class="card">
               <div onclick="linkClick('<%= lesson_url(@conn, :show, lesson) %>')" class="card-content waves-effect waves-grayed">
-                <span class="card-title">
-                  <%= lesson.title %>
-                </span>
+                <span class="card-title truncate"><%= lesson.title %></span>
                 <%= if lesson.grammar != "" do %>
-                  <div><i class="tiny material-icons light-blue-text text-accent-4 padding-right">school</i><%= lesson.grammar %></div>
+                  <div class="valign-wrapper"><i class="tiny material-icons slim light-blue-text text-accent-4 padding-right">school</i><%= lesson.grammar %></div>
                 <% end %>
                 <%= if lesson.words != "" do %>
-                  <div><i class="tiny material-icons light-blue-text text-accent-4 padding-right">import_contacts</i><%= lesson.words %></div>
+                  <div class="valign-wrapper"><i class="tiny material-icons slim light-blue-text text-accent-4 padding-right">import_contacts</i><%= lesson.words %></div>
                 <% end %>
               </div>
             </div>
 
-          <% end %>
         <% end %>
       </div>
       <div id="Upper-Intermediate">
-        <%= for lesson <- @lessons do %>
-          <%= if lesson.level == "Upper-Intermediate" do %>
+        <%= for lesson <- @upper_int do %>
             <div><%# lesson.order %></div>
 
             <div class="card">
               <div onclick="linkClick('<%= lesson_url(@conn, :show, lesson) %>')" class="card-content waves-effect waves-grayed">
-                <span class="card-title">
-                  <%= lesson.title %>
-                </span>
+                <span class="card-title truncate"><%= lesson.title %></span>
                 <%= if lesson.grammar != "" do %>
-                  <div><i class="tiny material-icons light-blue-text text-accent-4 padding-right">school</i><%= lesson.grammar %></div>
+                  <div class="valign-wrapper"><i class="tiny material-icons slim light-blue-text text-accent-4 padding-right">school</i><%= lesson.grammar %></div>
                 <% end %>
                 <%= if lesson.words != "" do %>
-                  <div><i class="tiny material-icons light-blue-text text-accent-4 padding-right">import_contacts</i><%= lesson.words %></div>
+                  <div class="valign-wrapper"><i class="tiny material-icons slim light-blue-text text-accent-4 padding-right">import_contacts</i><%= lesson.words %></div>
                 <% end %>
               </div>
             </div>
 
-          <% end %>
         <% end %>
       </div>
       <div id="Advanced">
-        <%= for lesson <- @lessons do %>
-          <%= if lesson.level == "Advanced" do %>
+        <%= for lesson <- @advanced do %>
             <div><%# lesson.order %></div>
 
             <div class="card">
               <div onclick="linkClick('<%= lesson_url(@conn, :show, lesson) %>')" class="card-content waves-effect waves-grayed">
-                <span class="card-title">
-                  <%= lesson.title %>
-                </span>
+                <span class="card-title truncate"><%= lesson.title %></span>
                 <%= if lesson.grammar != "" do %>
-                  <div><i class="tiny material-icons light-blue-text text-accent-4 padding-right">school</i><%= lesson.grammar %></div>
+                  <div class="valign-wrapper"><i class="tiny material-icons slim light-blue-text text-accent-4 padding-right">school</i><%= lesson.grammar %></div>
                 <% end %>
                 <%= if lesson.words != "" do %>
-                  <div><i class="tiny material-icons light-blue-text text-accent-4 padding-right">import_contacts</i><%= lesson.words %></div>
+                  <div class="valign-wrapper"><i class="tiny material-icons slim light-blue-text text-accent-4 padding-right">import_contacts</i><%= lesson.words %></div>
                 <% end %>
               </div>
             </div>
 
-          <% end %>
         <% end %>
       </div>
     </div>

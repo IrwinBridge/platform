@@ -1,8 +1,10 @@
+<div id="page_name" hidden>editpage</div>
+
 <div class="row">
   <%= form_for @changeset, @action, fn f -> %>
 
     <div class="col s3">
-      <div class="card-panel">
+      <div class="card-panel margin-0">
 
           <div class="input-field">
             <%= label f, :title %>
@@ -34,11 +36,11 @@
         </span>
       </div>
 
-      <div class="card-panel control-panel">
-        <a drab="click:new_exercise_click" class="waves-effect waves-light btn"><i class="material-icons left">add</i>New exercise</a>
+      <div id="make_the_page" class="card-panel centered">
+        <a id="add_exercise_button" class="waves-effect waves-light btn light-blue accent-4"><i class="material-icons left">add</i>New exercise</a>
       </div>
 
-      <div class="card-panel showroom"></div>
+      <div id="lesson_page_content" class="card-panel showroom" data-page_id="<%= @page.id %>"></div>
 
       <ul class="collapsible" data-collapsible="accordion">
         <li>
@@ -57,6 +59,12 @@
               <%= textarea f, :content, class: "materialize-textarea content-textarea" %>
               <%= error_tag f, :content %>
             </div>
+
+            <div class="input-field">
+              <%= label f, :answers %>
+              <%= text_input f, :answers, class: "validate" %>
+              <%= error_tag f, :answers %>
+            </div>
           </div>
         </li>
       </ul>
@@ -69,9 +77,3 @@
 
   <% end %>
 </div>
-
-<script>
-  function linkClick(url) {
-    window.location.href = url;
-  }
-</script>

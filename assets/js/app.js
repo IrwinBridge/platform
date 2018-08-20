@@ -80,6 +80,7 @@ $(document).ready(function() {
       // Get data from hidden div
       var titles = $("#page_titles").val().split(";").filter(function(n){ return n != "" });
       var contents = $("#page_content").val().split(";").filter(function(n){ return n != "" });
+      var answers = $("#page_answers").val().split(";").filter(function(n){ return n != ""});
 
       // Treat it
       if (titles.length) {
@@ -87,7 +88,7 @@ $(document).ready(function() {
 
         // Render it
         for (var i = 1; i <= ex_num; i++) {
-          render_exercise_form(i, titles, contents);
+          render_exercise_form(i, titles, contents, answers);
 
           // Update values
           $(`#input_exercise_title_${i}`).ready(function() {
@@ -107,4 +108,64 @@ $(document).ready(function() {
     });
   }
 
+  // Resizeable fill the gap
+  $("main[role=main]").on('propertychange input', ".fill-the-gap-input-converted", function (e) {
+    var $this = $(`#${this.id}`);
+    var $ftg_placeholder = $this.parent().find(".fill-the-gap-placeholder");
+
+    var valueChanged = false;
+
+    if (e.type=='propertychange') {
+      valueChanged = e.originalEvent.propertyName=='value';
+    } else {
+      valueChanged = true;
+    }
+
+    if (valueChanged) {
+      var c = String.fromCharCode(e.keyCode | e.charCode);
+      resizeInputToFitContent.call($this, $ftg_placeholder, $this.val() + c);
+    }
+  });
+
+  // Answer checking
+  $("main[role=main]").on('keydown', ".fill-the-gap-input-converted", function (e) {
+    if (e.which == 13) {
+      var $this = $(`#${this.id}`);
+      var answer = $this.data("answer");
+      var container = $this.parent();
+      var parent_id = $this.parent().attr("id");
+
+      if ($this.val().toLowerCase() == answer.toLowerCase()) {
+        //console.log("Right!");
+        var answer_html = `<span id="${parent_id}" class="fill-the-gap-answer" hidden>${answer}</span>`;
+
+        container.fadeOut(400, function(){
+          container.hide();
+          container.replaceWith(answer_html);
+          $(`#${parent_id}`).fadeIn(500);
+        });
+      } else {
+        //console.log("Wrong!");
+        $this.css("border-color", "#ff5252");
+      }
+    }
+  });
+
+
+  // Answer writing in edit mode
+  $("main[role=main]").on('input', ".fill-the-gap-answer-input", function (e) {
+    var $this = $(`#${this.id}`);
+
+    $this.attr("value", $this.val());
+  });
+
 });
+
+
+
+function resizeInputToFitContent($placeholder, text) {
+  var $this = $(this);
+  $placeholder.text(text);
+  var $inputSize = $placeholder.width();
+  $this.css("width", $inputSize);
+}

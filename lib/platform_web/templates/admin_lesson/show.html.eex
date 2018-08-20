@@ -13,7 +13,7 @@
       <li class="active">
         <div class="collapsible-header waves-effect waves-grayed">
           <span class="valign-wrapper">
-            <i class="material-icons slim">folder</i>Preparation
+            <i class="material-icons slim grey-text text-darken-3">folder</i>Preparation
           </span>
         </div>
         <div class="collapsible-body">
@@ -37,7 +37,7 @@
       <li class="active">
         <div class="collapsible-header waves-effect waves-grayed">
           <span class="valign-wrapper">
-            <i class="material-icons slim">folder</i>Lesson
+            <i class="material-icons slim grey-text text-darken-3">folder</i>Lesson
           </span>
         </div>
         <div class="collapsible-body">
@@ -61,7 +61,7 @@
       <li class="active">
         <div class="collapsible-header waves-effect waves-grayed">
           <span class="valign-wrapper">
-            <i class="material-icons slim">folder</i>Homework
+            <i class="material-icons slim grey-text text-darken-3">folder</i>Homework
           </span>
         </div>
         <div class="collapsible-body">

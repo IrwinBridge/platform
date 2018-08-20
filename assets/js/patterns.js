@@ -89,8 +89,7 @@ export function get_toolbar(ex_id) {
 }
 
 
-export function build_text(ex_id, content) {
-
+export function build_text(ex_id, content, answers_batched) {
   // remove toolbar with fade in
   $(`#exercise_toolbar_${ex_id}`).remove();
 
@@ -123,7 +122,20 @@ export function build_text(ex_id, content) {
 
   $(`#exercise_content_hidden_${ex_id}`).before(combined_html);
 
-  // listeners
+  // Add answers to textarea
+  var answers = answers_batched.split(",");
+  answers.sort(function(a, b) {
+    return parseInt(a.charAt(0)) - parseInt(b.charAt(0));
+  });
+
+  for (var i = 0; i < answers.length; i++) {
+    answers[i] = answers[i].trim();
+    var input_id = answers[i].charAt(0);
+
+    var answer_html = `<input id="fill_the_gap_answer_input_${input_id}" type="text" class="browser-default fill-the-gap-answer-input" value="${answers[i].substring(1)}">`;
+    $(`#fill_the_gap_input_${input_id}`).after(answer_html);
+  }
+
 
   // resize textarea
   $(`#toolbar_text_textarea_${ex_id}`).each(function () {
@@ -142,6 +154,7 @@ export function build_text(ex_id, content) {
     $(`#exercise_content_hidden_${ex_id}`).before(exercise_toolbar);
   });
 
+  // text-pattern toolbar buttons click
   $(`.centered-img-button[data-ex_id=${ex_id}]`).click(function(e) {
     var command = $(this).data('command');
 
@@ -149,46 +162,12 @@ export function build_text(ex_id, content) {
       var input_id = get_next_input_id_number();
 
       var fill_the_gap_placeholder = `<span id="fill_the_gap_placeholder_${input_id}" class="fill-the-gap-placeholder"></span>`;
-      var fill_the_gap_input = `<input id="fill_the_gap_input_${input_id}" type="text" class="browser-default fill-the-gap-input">`;
+      var fill_the_gap_input = `<input id="fill_the_gap_input_${input_id}" type="text" class="browser-default fill-the-gap-input" autocomplete="off">`;
       var fill_the_gap_answer = `<input id="fill_the_gap_answer_input_${input_id}" type="text" class="browser-default fill-the-gap-answer-input">`;
-      var fill_the_gap_html = `<span></span><span id="fill_the_gap_${input_id}" class="fill-the-gap" contenteditable="false">${fill_the_gap_placeholder}${fill_the_gap_input}</span><span></span>`;
+      var fill_the_gap_html = `<span></span><span id="fill_the_gap_${input_id}" class="fill-the-gap" contenteditable="false">${fill_the_gap_placeholder}${fill_the_gap_input}${fill_the_gap_answer}</span><span></span>`;
 
       document.execCommand(command, false, fill_the_gap_html);
 
-      // make parent div inline
-      //TODO: it wraps in to a div
-      /*var div_parent = $(`#fill_the_gap_${input_id}`).parent();
-      if (div_parent.prop("tagName") === "DIV") {
-        $(`#fill_the_gap_${input_id}`).parent().css("display", "inline");
-      }*/
-
-      var $input = $(`#fill_the_gap_input_${input_id}`);
-      var $placeholder = $(`#fill_the_gap_placeholder_${input_id}`);
-
-      $input.on('propertychange input', function (e) {
-        var valueChanged = false;
-
-        if (e.type=='propertychange') {
-          valueChanged = e.originalEvent.propertyName=='value';
-        } else {
-          valueChanged = true;
-        }
-
-        if (valueChanged) {
-          var c = String.fromCharCode(e.keyCode | e.charCode);
-          var $this = $(this);
-          resizeInputToFitContent.call($this, $placeholder, $this.val() + c);
-        }
-      });
-
     } else document.execCommand(command, false, null);
   });
-}
-
-
-function resizeInputToFitContent($placeholder, text) {
-  var $this = $(this);
-  $placeholder.text(text);
-  var $inputSize = $placeholder.width();
-  $this.css("width", $inputSize);
 }

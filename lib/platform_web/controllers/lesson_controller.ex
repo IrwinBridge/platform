@@ -69,9 +69,18 @@ defmodule PlatformWeb.LessonController do
 
     first_page = Lessons.get_first_page(lesson.id)
 
-    Helper.render_lessons(conn, "show.html",
-      %{lesson: lesson, prep_type: prep_type, lesson_type: lesson_type, hw_type: hw_type,
-        start_page_with_id: first_page.id})
+    case first_page do
+      nil ->
+        Helper.render_lessons(conn, "show.html",
+          %{lesson: lesson, prep_type: prep_type, lesson_type: lesson_type, hw_type: hw_type,
+            start_page_with_id: nil})
+      _ ->
+      Helper.render_lessons(conn, "show.html",
+        %{lesson: lesson, prep_type: prep_type, lesson_type: lesson_type, hw_type: hw_type,
+          start_page_with_id: first_page.id})
+    end
+
+
   end
 
   def edit(conn, %{"id" => id}) do

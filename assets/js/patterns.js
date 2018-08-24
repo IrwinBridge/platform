@@ -94,26 +94,14 @@ export function build_text(ex_id, content, answers_batched) {
   $(`#exercise_toolbar_${ex_id}`).remove();
 
   // insert textarea with fade out
-  var b = `
-    <span class="waves-effect btn-flat centered-img-button" data-ex_id="${ex_id}" data-command='bold'><b>b</b></span>`;
-  var em = `
-    <span class="waves-effect btn-flat centered-img-button" data-ex_id="${ex_id}" data-command='italic'><em>i</em></span>`;
-  var un = `
-    <span class="waves-effect btn-flat centered-img-button" data-ex_id="${ex_id}" data-command='underline'><u>u</u></span>`;
-  var ordered_list = `
-    <span class="waves-effect btn-flat centered-img-button" data-ex_id="${ex_id}" data-command='insertOrderedList'>
-      <i class="material-icons">format_list_numbered</i></span>`;
-  var unordered_list = `
-    <span class="waves-effect btn-flat centered-img-button" data-ex_id="${ex_id}" data-command='insertUnorderedList'>
-      <i class="material-icons">format_list_bulleted</i></span>`;
-  var fill_the_gap = `
-    <span class="waves-effect btn-flat centered-img-button" data-ex_id="${ex_id}" data-command='insertHTML'>
-      <i class="material-icons">create</i>fill the gap</span>`;
+  var b = `<span class="waves-effect btn-flat centered-img-button" data-ex_id="${ex_id}" data-command='bold'><b>b</b></span>`;
+  var em = `<span class="waves-effect btn-flat centered-img-button" data-ex_id="${ex_id}" data-command='italic'><em>i</em></span>`;
+  var un = `<span class="waves-effect btn-flat centered-img-button" data-ex_id="${ex_id}" data-command='underline'><u>u</u></span>`;
+  var ordered_list = `<span class="waves-effect btn-flat centered-img-button" data-ex_id="${ex_id}" data-command='insertOrderedList'><i class="material-icons">format_list_numbered</i></span>`;
+  var unordered_list = `<span class="waves-effect btn-flat centered-img-button" data-ex_id="${ex_id}" data-command='insertUnorderedList'><i class="material-icons">format_list_bulleted</i></span>`;
+  var fill_the_gap = `<span class="waves-effect btn-flat centered-img-button" data-ex_id="${ex_id}" data-command='insertHTML'><i class="material-icons">create</i>fill the gap</span>`;
 
-  var remove = `
-    <span class="waves-effect btn-flat remove-pattern-button" data-ex_id="${ex_id}">
-      <i class="material-icons">close</i>
-    </span>`;
+  var remove = `<span class="waves-effect btn-flat remove-pattern-button" data-ex_id="${ex_id}"><i class="material-icons">close</i></span>`;
 
   var panel = `<div class="toolbar-text-panel"><span class="">${b}${em}${un}${ordered_list}${unordered_list}${fill_the_gap}</span>${remove}</div>`;
   var textarea = `<div id="toolbar_text_textarea_${ex_id}" class="toolbar-text-textarea textarea-resizeable" contenteditable>${content}</div>`;
@@ -123,17 +111,22 @@ export function build_text(ex_id, content, answers_batched) {
   $(`#exercise_content_hidden_${ex_id}`).before(combined_html);
 
   // Add answers to textarea
-  var answers = answers_batched.split(",");
-  answers.sort(function(a, b) {
-    return parseInt(a.charAt(0)) - parseInt(b.charAt(0));
-  });
+  if (answers_batched) {
+    var answers = answers_batched.split(",");
 
-  for (var i = 0; i < answers.length; i++) {
-    answers[i] = answers[i].trim();
-    var input_id = answers[i].charAt(0);
+    if (answers.length > 1) {
+      answers.sort(function(a, b) {
+        return parseInt(a.charAt(0)) - parseInt(b.charAt(0));
+      });
+    }
 
-    var answer_html = `<input id="fill_the_gap_answer_input_${input_id}" type="text" class="browser-default fill-the-gap-answer-input" value="${answers[i].substring(1)}">`;
-    $(`#fill_the_gap_input_${input_id}`).after(answer_html);
+    for (var i = 0; i < answers.length; i++) {
+      answers[i] = answers[i].trim();
+      var input_id = answers[i].charAt(0);
+
+      var answer_html = `<input id="fill_the_gap_answer_input_${input_id}" type="text" class="browser-default fill-the-gap-answer-input" value="${answers[i].substring(1)}">`;
+      $(`#fill_the_gap_input_${input_id}`).after(answer_html);
+    }
   }
 
 

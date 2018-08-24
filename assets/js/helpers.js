@@ -1,5 +1,6 @@
 import {get_toolbar, build_text} from "./patterns"
 
+// TODO: on build_text load create answers if they're exist
 export function update_page(payload) {
   var page_content = $("#lesson_page_content");
 
@@ -58,10 +59,6 @@ export function save_exercise(ex_id) {
   if ($(".text-textarea")) {
     new_content = $(`#toolbar_text_textarea_${ex_id}`).html();
     new_content = rebuild_content_with_ftg(new_content);
-
-    // Extract answers
-    //new_answers = extract_answers(new_content);
-    //console.log(new_answers);
   }
 
   // search first chars of substrings
@@ -95,6 +92,10 @@ export function save_exercise(ex_id) {
       return `${text}${ex_id}${new_content};`;
     });
   }
+
+  $("#page_content").val(function(i, text) {
+    return text.replace(/&nbsp;/g, ' ');
+  });
 
   var last_titles = $("#page_titles").val();
   var last_contents = $("#page_content").val();
@@ -160,8 +161,11 @@ export function render_exercise_form(ex_id, titles, contents, answers) {
   $("#add_exercise_button").before(compiled_html);
 
   // if type == text then build_text
+  // TODO: make it pattern independent
   if (contents[ex_id-1]) {
-    build_text(ex_id, contents[ex_id-1].slice(1), answers[ex_id-1].slice(1));
+    build_text(ex_id,
+               contents[ex_id-1].slice(1),
+               (answers[ex_id-1]) ? answers[ex_id-1] : "");
   } else {
     console.log("Nothing to show");
   }
@@ -249,49 +253,64 @@ function rebuild_content_with_ftg(new_content) {
   //console.log(ftg_containters);
 
   // extract inputs
-  var ftg_inputs = ftg_containters.join().match(/<input id="fill_the_gap_input_([\s\S]*?)>/g);
-  //console.log(ftg_inputs);
+  if (ftg_containters) {
+    var ftg_inputs = ftg_containters.join().match(/<input id="fill_the_gap_input_([\s\S]*?)>/g);
+    //console.log(ftg_inputs);
 
-  // make new input with attributes
-  var new_inputs = [];
+    // make new input with attributes
+    var new_inputs = [];
+    var answers = [];
 
-  for (var i = 0; i < ftg_containters.length; i++) {
-    var new_input = ftg_inputs[i].replace(`fill-the-gap-input"`, `fill-the-gap-input-converted"`);
+    for (var i = 0; i < ftg_containters.length; i++) {
+      var new_input = ftg_inputs[i].replace(`fill-the-gap-input"`, `fill-the-gap-input-converted"`);
 
-    var answer_input = ftg_containters[i].match(/<input id="fill_the_gap_answer_input_([\s\S]*?)>/)[0];
-    var answer = answer_input.match(/value="(.*)">/)[1];
+      var answer_input = ftg_containters[i].match(/<input id="fill_the_gap_answer_input_([\s\S]*?)>/)[0];
+      var answer = answer_input.match(/value="(.*)">/)[1];
 
-    new_input = new_input.replace(`fill-the-gap-input-converted"`, `fill-the-gap-input-converted" data-answer="${answer}"`);
+      // Save answer for answers field !
+      var input_id = ftg_inputs[i].match(/"fill_the_gap_input_([\s\S]*?)"/)[0];
+      input_id = input_id.match(/\d+/g)[0];
+      answers.push(`${input_id}${answer}`);
 
-    // replace inputs
-    var new_ftg_container = ftg_containters[i].replace(ftg_inputs[i], new_input);
+      new_input = new_input.replace(`fill-the-gap-input-converted"`, `fill-the-gap-input-converted" data-answer="${answer}"`);
 
-    new_ftg_container = new_ftg_container.replace(`${answer_input}`, "");
-    //console.log(new_ftg_container);
-    new_content = new_content.replace(ftg_containters[i], new_ftg_container);
+      // replace inputs
+      var new_ftg_container = ftg_containters[i].replace(ftg_inputs[i], new_input);
+
+      new_ftg_container = new_ftg_container.replace(`${answer_input}`, "");
+      //console.log(new_ftg_container);
+      new_content = new_content.replace(ftg_containters[i], new_ftg_container);
+    }
+
+    // Replace answers TODO: rework it to replace existing answers
+    $("#page_answers").val(function(i, text) {
+      return `${answers.join(",")};`;
+    });
   }
 
   return new_content;
 }
 
-function extract_answers(content) {
+/*function extract_answers(content) {
   // extract inputs
   var ftg_inputs = content.match(/<input id="fill_the_gap_input_([\s\S]*?)>/g);
 
   var answers = [];
-  for (var i = 0; i < ftg_inputs.length; i++) {
-    console.log(ftg_inputs[i]);
-    var input_id = ftg_inputs[i].match(/"fill_the_gap_input_([\s\S]*?)"/)[0];
-    input_id = input_id.charAt(input_id.length - 2);
+  if (ftg_inputs) {
+    for (var i = 0; i < ftg_inputs.length; i++) {
+      console.log(ftg_inputs[i]);
+      var input_id = ftg_inputs[i].match(/"fill_the_gap_input_([\s\S]*?)"/)[0];
+      input_id = input_id.charAt(input_id.length - 2);
 
-    var answer = ftg_inputs[i].match(/data-answer=\"(.*)\">/);
-    console.log(answer);
+      var answer = ftg_inputs[i].match(/data-answer=\"(.*)\">/);
+      console.log(answer);
 
-    answers.push(`${input_id}${answer}`);
+      answers.push(`${input_id}${answer}`);
+    }
   }
 
   return answers.join(",");
-}
+}*/
 
 function adjust(elements, offset, min, max) {
 

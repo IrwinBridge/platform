@@ -3,7 +3,7 @@ import "phoenix_html"
 import socket from "./socket"
 import {get_next_ex_number, save_exercise, remove_exercise,
         render_exercise_form} from "./helpers"
-import {get_toolbar, build_text} from "./patterns"
+import {get_toolbar, build_text, build_matching} from "./patterns"
 
 require("materialize-css")
 
@@ -34,7 +34,7 @@ $(document).ready(function() {
       // make title input
       var write_title = `
         <div class="input-field">
-          <input id="input_exercise_title_${ex_id}" type="text">
+          <input id="input_exercise_title_${ex_id}" type="text" class="edit-field">
           <label for="input_exercise_title_${ex_id}">Exercise title</label>
         </div>`;
       var title_input = `<div class="title-input">${write_title}</div>`;
@@ -104,7 +104,14 @@ $(document).ready(function() {
       var id = this.getAttribute('id');
       var ex_id = id.substr(id.length - 1);
 
-      build_text(ex_id, "");
+      build_text(ex_id, "", "");
+    });
+
+    $("#make_the_page").on("click", ".toolbar-matching", function() {
+      var id = this.getAttribute('id');
+      var ex_id = id.substr(id.length - 1);
+
+      build_matching(ex_id, "");
     });
   }
 
@@ -151,7 +158,6 @@ $(document).ready(function() {
     }
   });
 
-
   // Answer writing in edit mode
   $("main[role=main]").on('input', ".fill-the-gap-answer-input", function (e) {
     var $this = $(`#${this.id}`);
@@ -159,8 +165,14 @@ $(document).ready(function() {
     $this.attr("value", $this.val());
   });
 
-});
+  // Predefined value writing in edit mode
+  $("main[role=main]").on('input', ".fill-the-gap-input", function (e) {
+    var $this = $(`#${this.id}`);
 
+    $this.attr("value", $this.val());
+  });
+
+});
 
 
 function resizeInputToFitContent($placeholder, text) {

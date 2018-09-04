@@ -236,9 +236,12 @@ function htmlyze() {
 
 function prepare_ftg() {
   var $answer_input = $(`.fill-the-gap-answer-input`);
-  var font_size = parseInt($answer_input.css('font-size'));
+  var $ftg_input = $(`.fill-the-gap-input-converted`);
+
+  //var answer_input_font_size = parseInt($answer_input.css('font-size'));
 
   adjust($answer_input, 5, 0, 1000);
+  adjust($ftg_input, 5, 0, 1000);
 }
 
 function extract_ftg_container(content) {
@@ -264,6 +267,7 @@ function rebuild_content_with_ftg(new_content) {
     for (var i = 0; i < ftg_containters.length; i++) {
       var new_input = ftg_inputs[i].replace(`fill-the-gap-input"`, `fill-the-gap-input-converted"`);
 
+      // Answer extracting
       var answer_input = ftg_containters[i].match(/<input id="fill_the_gap_answer_input_([\s\S]*?)>/)[0];
       var answer = answer_input.match(/value="(.*)">/)[1];
 
@@ -273,6 +277,7 @@ function rebuild_content_with_ftg(new_content) {
       answers.push(`${input_id}${answer}`);
 
       new_input = new_input.replace(`fill-the-gap-input-converted"`, `fill-the-gap-input-converted" data-answer="${answer}"`);
+
 
       // replace inputs
       var new_ftg_container = ftg_containters[i].replace(ftg_inputs[i], new_input);

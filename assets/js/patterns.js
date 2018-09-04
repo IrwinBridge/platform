@@ -67,10 +67,10 @@ export function get_toolbar(ex_id) {
       <i class="material-icons">format_align_left</i>essay
     </span>`;
 
-  var translation = `
+  /*var translation = `
     <span id="translation_${ex_id}" class="waves-effect btn-flat centered-img-button toolbar-translation">
       <i class="material-icons">translate</i>translation
-    </span>`;
+    </span>`;*/
 
   var grammar = `
     <span id="grammar_${ex_id}" class="waves-effect btn-flat centered-img-button toolbar-grammar">
@@ -82,8 +82,8 @@ export function get_toolbar(ex_id) {
       <i class="material-icons">videogame_asset</i>game
     </span>`;
 
-  return `${text}${essay}${translation}${grammar}${dialogues}
-          ${matching}${reorder}${multiple_choice}${true_false}
+  return `${text}${matching}${essay}${grammar}
+          ${dialogues}${reorder}${multiple_choice}${true_false}
           ${flip_the_card}${drag_word_to_picture}${correct_option}
           ${audio}${video}${recording}${game}`;
 }
@@ -163,4 +163,48 @@ export function build_text(ex_id, content, answers_batched) {
 
     } else document.execCommand(command, false, null);
   });
+}
+
+export function build_matching(ex_id, content) {
+  // remove toolbar with fade in
+  $(`#exercise_toolbar_${ex_id}`).remove();
+  $(`.save-exercise-button[data-ex_id="${ex_id}"]`).remove();
+
+  // insert column count with fade out
+  var column_count_label = `<span class="column-count-label">Type column count: </span>`;
+  var column_count_select = `<select class="browser-default column-count-select" data-ex_id="${ex_id}">
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                            </select>`;
+  var column_count_ok_button = `<a class="waves-effect waves-light btn light-blue accent-4 column-count-ok-button" data-ex_id="${ex_id}">OK</a>`;
+  var combined_html = `<div class="matching-builder" data-ex_id="${ex_id}">${column_count_label}${column_count_select}${column_count_ok_button}</div>`;
+
+  $(`#exercise_content_hidden_${ex_id}`).before(combined_html);
+
+  $(`.column-count-ok-button[data-ex_id="${ex_id}"`).click(function() {
+    // Get column count
+    var column_count = $(`.column-count-select[data-ex_id="${ex_id}"]`).val();
+
+    // Clear matching-builder
+    $(`.matching-builder[data-ex_id="${ex_id}"]`).empty();
+
+    // Build matching builder with column count
+    build_matching_builder(ex_id, column_count, content);
+  });
+}
+
+function build_matching_builder(ex_id, column_count, content) {
+  // TODO: Finish making of these 3 lines
+  var columns_fields = "";
+  for (var i = 0; i < column_count; i++) {
+    columns_fields += ``;
+  }
+
+  var columns_line = `<div class="columns-line" data-ex_id="${ex_id}"></div>`;
+  var new_line_button = `<div class="new-line-button" data-ex_id="${ex_id}"></div>`;
+  var save_exercise_button = `<a class="save-exercise-button" data-ex_id="${ex_id}"></a>`;
+
+  var html = `${columns_line}${new_line_button}${save_exercise_button}`;
+
+  $(`.matching-builder[data-ex_id="${ex_id}"]`).html(html);
 }
